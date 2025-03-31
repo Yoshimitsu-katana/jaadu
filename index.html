@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Buttons</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+        .button-panel {
+            display: grid;
+            grid-template-columns: repeat(2, 80px);
+            gap: 10px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button {
+            width: 80px;
+            height: 80px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background: #eee;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-panel">
+        <button onclick="playSound(0)">🔊 1</button>
+        <button onclick="playSound(1)">🔊 2</button>
+        <button onclick="playSound(2)">🔊 3</button>
+        <button onclick="playSound(3)">🔊 4</button>
+    </div>
+    
+    <script>
+        // Generate floating emojis
+        const emojis = ['😃', '🎉', '❤️', '✨', '🔥', '🌟'];
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.top = '100vh';
+            document.body.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 5000);
+        }
+        setInterval(createEmoji, 500);
+
+        // Play sounds
+        const sounds = [
+            new Audio('sound1.mp3'),
+            new Audio('sound2.mp3'),
+            new Audio('sound3.mp3'),
+            new Audio('sound4.mp3')
+        ];
+        function playSound(index) {
+            sounds[index].play();
+        }
+    </script>
+</body>
+</html>
